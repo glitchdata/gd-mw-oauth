@@ -1,7 +1,7 @@
 {
     "name": "OAuthLogin",
     "version": "0.1.0",
-    "author": "Your Name",
+    "author": "Glitchdata",
     "url": "https://www.mediawiki.org/wiki/Extension:OAuthLogin",
     "description": "OAuth2 login against an external identity provider.",
     "type": "extension",

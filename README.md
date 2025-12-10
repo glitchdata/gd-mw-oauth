@@ -5,7 +5,7 @@ A lightweight MediaWiki extension that adds a "Log in with OAuth" button and aut
 ## Requirements
 - MediaWiki 1.39 or newer
 - PHP 7.4 or newer
-- An OAuth 2.0 provider that exposes Authorization, Token, and UserInfo endpoints (OpenID Connect compatible is ideal)
+- An OAuth 2.0 provider from Glitchdata that exposes Authorization, Token, and UserInfo endpoints (OpenID Connect compatible)
 
 ## Installation
 1) Copy or clone this extension into `extensions/OAuthLogin` in your MediaWiki install.
