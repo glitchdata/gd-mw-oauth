@@ -1,0 +1,76 @@
+{
+    "name": "OAuthLogin",
+    "version": "0.1.0",
+    "author": "Your Name",
+    "url": "https://www.mediawiki.org/wiki/Extension:OAuthLogin",
+    "description": "OAuth2 login against an external identity provider.",
+    "type": "extension",
+    "license-name": "MIT",
+    "requires": {
+        "MediaWiki": ">= 1.39"
+    },
+    "manifest_version": 2,
+    "MessagesDirs": {
+        "OAuthLogin": [
+            "i18n"
+        ]
+    },
+    "ExtensionMessagesFiles": {
+        "OAuthLoginAlias": "includes/OAuthLogin.alias.php"
+    },
+    "AutoloadNamespaces": {
+        "MediaWiki\\Extension\\OAuthLogin\\": "includes/"
+    },
+    "Hooks": {
+        "PersonalUrls": "MediaWiki\\Extension\\OAuthLogin\\Hooks::onPersonalUrls"
+    },
+    "SpecialPages": {
+        "OAuthLogin": "MediaWiki\\Extension\\OAuthLogin\\SpecialOAuthLogin"
+    },
+    "ResourceModules": {
+        "ext.OAuthLogin.button": {
+            "styles": [
+                "resources/ext.OAuthLogin.button.css"
+            ],
+            "position": "top"
+        }
+    },
+    "config": {
+        "OAuthLoginClientID": {
+            "value": "",
+            "description": "OAuth2 client identifier issued by the provider."
+        },
+        "OAuthLoginClientSecret": {
+            "value": "",
+            "description": "OAuth2 client secret issued by the provider."
+        },
+        "OAuthLoginAuthURL": {
+            "value": "",
+            "description": "Provider authorization endpoint URL."
+        },
+        "OAuthLoginTokenURL": {
+            "value": "",
+            "description": "Provider token endpoint URL."
+        },
+        "OAuthLoginUserInfoURL": {
+            "value": "",
+            "description": "Provider userinfo endpoint URL returning JSON."
+        },
+        "OAuthLoginRedirectURI": {
+            "value": "",
+            "description": "Absolute callback URL (Special:OAuthLogin/callback)."
+        },
+        "OAuthLoginScope": {
+            "value": "openid email profile",
+            "description": "Space separated scopes to request."
+        },
+        "OAuthLoginAutoCreate": {
+            "value": true,
+            "description": "Create local user accounts automatically when missing."
+        },
+        "OAuthLoginAllowedDomains": {
+            "value": [],
+            "description": "Optional list of email domains allowed to authenticate."
+        }
+    }
+}

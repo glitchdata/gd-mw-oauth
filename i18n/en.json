@@ -1,0 +1,19 @@
+{
+    "@metadata": {
+        "authors": [
+            "Your Name"
+        ]
+    },
+    "oauthlogin": "OAuth login",
+    "oauthlogin-desc": "Allows users to authenticate through an external OAuth 2.0 provider.",
+    "oauthlogin-login-link": "Log in with OAuth",
+    "oauthlogin-already-logged-in": "You are already logged in.",
+    "oauthlogin-error-generic": "OAuth login failed. Please try again or contact an administrator.",
+    "oauthlogin-error-state": "The OAuth response could not be verified. Please start again.",
+    "oauthlogin-error-domain": "Your email domain is not allowed to sign in here.",
+    "oauthlogin-error-token": "The authorization code could not be exchanged for a token.",
+    "oauthlogin-error-userinfo": "Your profile could not be loaded from the identity provider.",
+    "oauthlogin-success-title": "OAuth login successful",
+    "oauthlogin-success-body": "You are now logged in as $1.",
+    "oauthlogin-missing-config": "OAuthLogin is not configured. Set OAuth endpoints, client ID, client secret, and redirect URI in LocalSettings.php."
+}

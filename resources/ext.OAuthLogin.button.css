@@ -1,0 +1,8 @@
+.mw-portlet-personal #pt-oauthlogin a {
+    font-weight: 600;
+    color: #1d4ed8;
+}
+
+.mw-portlet-personal #pt-oauthlogin a:hover {
+    text-decoration: underline;
+}
