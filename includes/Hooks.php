@@ -2,32 +2,43 @@
 
 namespace MediaWiki\Extension\OAuthLogin;
 
+use MediaWiki\Hook\SkinTemplateNavigation__UniversalHook;
 use MediaWiki\SpecialPage\SpecialPage;
-use MediaWiki\Title\Title;
+use SkinTemplate;
 
-class Hooks {
-    public static function onPersonalUrls( array &$personalUrls, Title $title, $skin ): bool {
-        $user = $skin->getUser();
-        if ( $user->isRegistered() ) {
-            return true;
-        }
+class Hooks implements SkinTemplateNavigation__UniversalHook {
+	/**
+	 * Add a "Log in with OAuth" entry to the personal tools for anonymous users.
+	 *
+	 * @param SkinTemplate $sktemplate
+	 * @param array &$links
+	 */
+	public function onSkinTemplateNavigation__Universal( $sktemplate, &$links ): void {
+		if ( $sktemplate->getUser()->isRegistered() ) {
+			return;
+		}
 
-        $config = $skin->getConfig();
-        if ( !$config->get( 'OAuthLoginAuthURL' ) || !$config->get( 'OAuthLoginClientID' ) ) {
-            return true;
-        }
+		$config = $sktemplate->getConfig();
+		if ( !$config->get( 'OAuthLoginAuthURL' ) || !$config->get( 'OAuthLoginClientID' ) ) {
+			return;
+		}
 
-        $loginTitle = SpecialPage::getTitleFor( 'OAuthLogin' );
-        $personalUrls = [
-            'oauthlogin' => [
-                'text' => wfMessage( 'oauthlogin-login-link' )->text(),
-                'href' => $loginTitle->getLocalURL(),
-                'active' => $title->equals( $loginTitle ),
-            ],
-        ] + $personalUrls;
+		$loginTitle = SpecialPage::getTitleFor( 'OAuthLogin' );
+		$title = $sktemplate->getTitle();
+		$query = [];
+		if ( $title && !$title->isSpecial( 'Userlogin' ) && !$title->isSpecial( 'OAuthLogin' ) ) {
+			$query['returnto'] = $title->getPrefixedText();
+		}
 
-        $skin->getOutput()->addModules( [ 'ext.OAuthLogin.button' ] );
+		$entry = [
+			'text' => $sktemplate->msg( 'oauthlogin-login-link' )->text(),
+			'href' => $loginTitle->getLocalURL( $query ),
+			'active' => $title && $title->equals( $loginTitle ),
+			'icon' => 'logIn',
+		];
 
-        return true;
-    }
+		$links['user-menu'] = [ 'oauthlogin' => $entry ] + ( $links['user-menu'] ?? [] );
+
+		$sktemplate->getOutput()->addModuleStyles( [ 'ext.OAuthLogin.button' ] );
+	}
 }

@@ -1,76 +1,110 @@
 {
-    "name": "OAuthLogin",
-    "version": "0.1.0",
-    "author": "Glitchdata",
-    "url": "https://www.mediawiki.org/wiki/Extension:OAuthLogin",
-    "description": "OAuth2 login against an external identity provider.",
-    "type": "extension",
-    "license-name": "MIT",
-    "requires": {
-        "MediaWiki": ">= 1.39"
-    },
-    "manifest_version": 2,
-    "MessagesDirs": {
-        "OAuthLogin": [
-            "i18n"
-        ]
-    },
-    "ExtensionMessagesFiles": {
-        "OAuthLoginAlias": "includes/OAuthLogin.alias.php"
-    },
-    "AutoloadNamespaces": {
-        "MediaWiki\\Extension\\OAuthLogin\\": "includes/"
-    },
-    "Hooks": {
-        "PersonalUrls": "MediaWiki\\Extension\\OAuthLogin\\Hooks::onPersonalUrls"
-    },
-    "SpecialPages": {
-        "OAuthLogin": "MediaWiki\\Extension\\OAuthLogin\\SpecialOAuthLogin"
-    },
-    "ResourceModules": {
-        "ext.OAuthLogin.button": {
-            "styles": [
-                "resources/ext.OAuthLogin.button.css"
-            ],
-            "position": "top"
-        }
-    },
-    "config": {
-        "OAuthLoginClientID": {
-            "value": "",
-            "description": "OAuth2 client identifier issued by the provider."
-        },
-        "OAuthLoginClientSecret": {
-            "value": "",
-            "description": "OAuth2 client secret issued by the provider."
-        },
-        "OAuthLoginAuthURL": {
-            "value": "",
-            "description": "Provider authorization endpoint URL."
-        },
-        "OAuthLoginTokenURL": {
-            "value": "",
-            "description": "Provider token endpoint URL."
-        },
-        "OAuthLoginUserInfoURL": {
-            "value": "",
-            "description": "Provider userinfo endpoint URL returning JSON."
-        },
-        "OAuthLoginRedirectURI": {
-            "value": "",
-            "description": "Absolute callback URL (Special:OAuthLogin/callback)."
-        },
-        "OAuthLoginScope": {
-            "value": "openid email profile",
-            "description": "Space separated scopes to request."
-        },
-        "OAuthLoginAutoCreate": {
-            "value": true,
-            "description": "Create local user accounts automatically when missing."
-        },
-        "OAuthLoginAllowedDomains": {
-            "value": [],
-            "description": "Optional list of email domains allowed to authenticate."
-        }
-    }
+	"name": "OAuthLogin",
+	"version": "0.2.0",
+	"author": "Glitchdata",
+	"url": "https://www.mediawiki.org/wiki/Extension:OAuthLogin",
+	"descriptionmsg": "oauthlogin-desc",
+	"type": "other",
+	"license-name": "MIT",
+	"requires": {
+		"MediaWiki": ">= 1.41.0",
+		"platform": {
+			"php": ">= 7.4"
+		}
+	},
+	"manifest_version": 2,
+	"MessagesDirs": {
+		"OAuthLogin": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"OAuthLoginAlias": "includes/OAuthLogin.alias.php"
+	},
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\OAuthLogin\\": "includes/"
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "MediaWiki\\Extension\\OAuthLogin\\Hooks"
+		}
+	},
+	"Hooks": {
+		"SkinTemplateNavigation::Universal": "main"
+	},
+	"SpecialPages": {
+		"OAuthLogin": {
+			"class": "MediaWiki\\Extension\\OAuthLogin\\SpecialOAuthLogin",
+			"services": [
+				"MainConfig",
+				"HttpRequestFactory",
+				"UserFactory",
+				"UserIdentityLookup",
+				"UserOptionsManager",
+				"AuthManager",
+				"HookContainer",
+				"ConnectionProvider"
+			]
+		}
+	},
+	"DefaultUserOptions": {
+		"oauthlogin-sub": ""
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "resources",
+		"remoteExtPath": "OAuthLogin/resources"
+	},
+	"ResourceModules": {
+		"ext.OAuthLogin.button": {
+			"styles": [
+				"ext.OAuthLogin.button.css"
+			]
+		}
+	},
+	"config": {
+		"OAuthLoginClientID": {
+			"value": "",
+			"description": "OAuth2 client identifier issued by the provider."
+		},
+		"OAuthLoginClientSecret": {
+			"value": "",
+			"description": "OAuth2 client secret issued by the provider."
+		},
+		"OAuthLoginAuthURL": {
+			"value": "",
+			"description": "Provider authorization endpoint URL."
+		},
+		"OAuthLoginTokenURL": {
+			"value": "",
+			"description": "Provider token endpoint URL."
+		},
+		"OAuthLoginUserInfoURL": {
+			"value": "",
+			"description": "Provider userinfo endpoint URL returning JSON."
+		},
+		"OAuthLoginRedirectURI": {
+			"value": "",
+			"description": "Absolute callback URL. Must be the full URL of Special:OAuthLogin on this wiki."
+		},
+		"OAuthLoginScope": {
+			"value": "openid email profile",
+			"description": "Space separated scopes to request."
+		},
+		"OAuthLoginAutoCreate": {
+			"value": true,
+			"description": "Create local user accounts automatically for provider identities not yet bound to a local account."
+		},
+		"OAuthLoginLinkByEmail": {
+			"value": false,
+			"description": "Bind a provider identity to an existing local account when the provider reports a verified email that exactly matches that account's confirmed email. Off by default; enable only if you trust the provider's email verification."
+		},
+		"OAuthLoginAllowedDomains": {
+			"value": [],
+			"description": "Optional list of email domains allowed to authenticate. When set, the provider must report a verified email on one of these domains."
+		},
+		"OAuthLoginRememberMe": {
+			"value": true,
+			"description": "Issue a long-lived session cookie after OAuth login."
+		}
+	}
 }

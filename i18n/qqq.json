@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Glitchdata"
+		]
+	},
+	"oauthlogin": "{{doc-special|OAuthLogin}}",
+	"oauthlogin-desc": "{{desc|name=OAuthLogin|url=https://www.mediawiki.org/wiki/Extension:OAuthLogin}}",
+	"oauthlogin-login-link": "Label of the personal-tools link that starts the OAuth login.",
+	"oauthlogin-already-logged-in": "Shown on Special:OAuthLogin when the visitor is already logged in.",
+	"oauthlogin-retry": "Shown under any error. Parameters:\n* $1 - prefixed title of Special:OAuthLogin, used as a wikilink target.",
+	"oauthlogin-error-generic": "Fallback error when the login fails for an unmapped reason.",
+	"oauthlogin-error-state": "Error when the OAuth state parameter is missing, mismatched or older than ten minutes.",
+	"oauthlogin-error-denied": "Error when the provider returns error=access_denied.",
+	"oauthlogin-error-provider": "Error when the provider returns any other error code.",
+	"oauthlogin-error-domain": "Error when the email domain is not in $wgOAuthLoginAllowedDomains or the email is not verified.",
+	"oauthlogin-error-token": "Error when the token endpoint does not return an access token.",
+	"oauthlogin-error-userinfo": "Error when the userinfo endpoint does not return JSON.",
+	"oauthlogin-error-noaccount": "Error when no local account is bound to the provider identity and auto-creation is disabled or failed.",
+	"oauthlogin-error-blocked": "Error when the resolved local account is sitewide blocked.",
+	"oauthlogin-missing-config": "Shown when required configuration variables are empty."
+}
